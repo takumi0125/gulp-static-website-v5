@@ -94,7 +94,7 @@ module.exports = (gulp, gulpPlugins, config)->
                     presets: [
                       [ 'env', { 'modules': false } ]
                     ]
-                    # plugins: ['transform-runtime']
+                    plugins: ['transform-runtime']
                 }
                 {
                   loader: 'coffee-loader'
@@ -114,7 +114,7 @@ module.exports = (gulp, gulpPlugins, config)->
                       [ 'env', { 'modules': false } ]
                       'react'
                     ]
-                    # plugins: ['transform-runtime']
+                    plugins: ['transform-runtime']
                 }
               ]
             }
