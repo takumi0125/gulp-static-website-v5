@@ -79,7 +79,8 @@ npm run watch:prd
 
 ```
 module.exports = {
-  "env": "develop" // dev: develop, stg: staging, prd: productionとなる
+  "env": "develop", // dev: develop, stg: staging, prd: productionとなる
+  "siteUrl": "xxxxxxx" // pugData.coffeeのsiteUrlの値
 }
 ```
 

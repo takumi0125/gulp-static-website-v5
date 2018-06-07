@@ -1,3 +1,4 @@
 module.exports = {
-  "env": "develop"
+  "env": "develop",
+  "siteUrl": "https://dev.sample.jp/"
 }
