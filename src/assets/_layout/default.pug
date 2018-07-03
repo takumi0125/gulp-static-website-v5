@@ -35,13 +35,13 @@ html(prefix="og:http://ogp.me/ns#")
       meta(property="og:type", content=ogType)
       meta(property="og:image", content=ogImage)
 
-      if ogImageType !== 'undefined'
+      if ogImageType !== undefined
         meta(property="og:image:type", content=ogImageType)
 
-      if ogImageWidth !== 'undefined'
+      if ogImageWidth !== undefined
         meta(property="og:image:width", content=ogImageWidth)
 
-      if ogImageHeight !== 'undefined'
+      if ogImageHeight !== undefined
         meta(property="og:image:height", content=ogImageHeight)
 
     if showTwitterCard
