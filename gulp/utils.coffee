@@ -8,6 +8,7 @@ source        = require 'vinyl-source-stream'
 webpackStream = require 'webpack-stream'
 webpack       = require 'webpack'
 
+UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 
 module.exports = (gulp, gulpPlugins, config)->
   utils =
@@ -77,6 +78,7 @@ module.exports = (gulp, gulpPlugins, config)->
       config.jsConcatTaskNames.push taskName
 
       webpackConfig =
+        mode: 'development'
         entry: entries
         output:
           path: outputDir
@@ -92,13 +94,13 @@ module.exports = (gulp, gulpPlugins, config)->
                   loader: 'babel-loader'
                   options:
                     presets: [
-                      [ 'env', { 'modules': false } ]
+                      [ '@babel/preset-env', { 'modules': false } ]
                     ]
-                    plugins: ['transform-runtime']
+                    plugins: ['@babel/plugin-transform-runtime']
                 }
                 {
                   loader: 'coffee-loader'
-                  options: { presets: [ 'react' ] }
+                  options: { presets: [ '@babel/preset-react' ] }
                 }
               ]
             }
@@ -111,10 +113,10 @@ module.exports = (gulp, gulpPlugins, config)->
                   loader: 'babel-loader'
                   options:
                     presets: [
-                      [ 'env', { 'modules': false } ]
-                      'react'
+                      [ '@babel/preset-env', { 'modules': false } ]
+                      '@babel/preset-react'
                     ]
-                    plugins: ['transform-runtime']
+                    plugins: ['@babel/plugin-transform-runtime' ]
                 }
               ]
             }
@@ -134,13 +136,15 @@ module.exports = (gulp, gulpPlugins, config)->
           webpackConfig.devtool = 'source-map'
 
         if config.compress.js and config.env isnt 'develop'
+
           uglifyJsPluginOptions =
             parallel: true
-            comments: false
+            extractComments:
+              license: ''
 
           if config.sourcemap then uglifyJsPluginOptions.sourceMap = true
 
-          webpackConfig.plugins.push new webpack.optimize.UglifyJsPlugin uglifyJsPluginOptions
+          webpackConfig.plugins.push new UglifyJsPlugin uglifyJsPluginOptions
 
         stream = gulp.src entries
         .pipe gulpPlugins.plumber errorHandler: utils.errorHandler taskName
