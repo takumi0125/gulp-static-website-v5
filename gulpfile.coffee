@@ -10,14 +10,14 @@ gulpPlugins = require('gulp-load-plugins')()
 config = require './gulp/config'
 config.env = gulpPlugins.util.env.env || 'develop'
 
-# utils
-utils = require('./gulp/utils')(gulp, gulpPlugins, config)
-
 # --env=staging or --env=productionオプションが指定されている場合はsourcemapは作らない
-if config.env is 'staging' or config.env is 'production'
+if config.env isnt 'develop'
   config.sourcemap = false
 else
   config.sourcemap = true
+
+# utils
+utils = require('./gulp/utils')(gulp, gulpPlugins, config)
 
 
 utils.msg gulpPlugins.util.colors.yellow "\n----------------------\n env: #{config.env}\n----------------------"
